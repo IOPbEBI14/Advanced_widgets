@@ -1,4 +1,6 @@
+import 'package:advanced_widgets/models/app_state.dart';
 import 'package:advanced_widgets/ui/widgets/button_panel.dart';
+import 'package:advanced_widgets/ui/widgets/weather_paint.dart';
 import 'package:advanced_widgets/ui/widgets/weather_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -16,11 +18,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    Store<ThemeData> store = StoreProvider.of<ThemeData>(context);
-    return StoreConnector<ThemeData, ThemeData>(
+    Store<AppState> store = StoreProvider.of<AppState>(context);
+    return StoreConnector<AppState, AppState>(
       converter: (store) => store.state,
       builder: (context, state) => Theme(
-        data: state,
+        data: state.currentTheme,
         child: Scaffold(
           appBar: AppBar(
             title: Text(widget.title),
@@ -28,21 +30,23 @@ class _MyHomePageState extends State<MyHomePage> {
           body: Column(
             children: [
               Expanded(
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const <Widget>[
-                      Text(
-                        'You have pushed the button this many times:',
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    padding: EdgeInsets.zero,
+                    child: SizedBox(
+                      width: 200,
+                      height: 300,
+                      child: CustomPaint(
+                        size: const Size.square(300),
+                        painter: WeatherPaint(state.weatherValue),
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
-             // WeatherSlider( store: store,),
-              ButtonPanel(
-                store: store,
-              )
+              const WeatherSlider(),
+              const ButtonPanel()
             ],
           ),
         ),
