@@ -1,4 +1,3 @@
-import 'package:advanced_widgets/actions/current_theme_action.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';

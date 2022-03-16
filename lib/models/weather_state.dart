@@ -18,9 +18,10 @@ class WeatherState {
   }
 
   double _getSunState(double value) {
-    if (value > 0.5) return 0;
+    if (value < 0.5) return 1;
+    if (value >= 0.7) return 0;
 
-    return -2 * value + 1;
+    return -5 * value + 3.5;
   }
 
   double _getCloudState(double value) {
